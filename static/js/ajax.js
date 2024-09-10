@@ -45,3 +45,13 @@ async function deleteCustomerById(id) {
     });
     return await response.json();
 }
+
+
+
+// Retorna os dados de endereço pelo CEP
+async function getAddressByZipcode(zipcode) {
+    const response = await fetch(`${API_BASE_URL}/customer/zipcode/${zipcode}`,{
+            method: 'GET'
+    });
+    return await response.json();
+}

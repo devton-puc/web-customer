@@ -74,7 +74,38 @@
                         <label for="customerAge">Idade</label>
                         <input type="text" class="form-control" id="customerAge" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <div class="mb-3">
+                        <label for="zipcode" class="form-label">CEP</label>
+                        <div class="input-group">
+                          <input type="text" class="form-control" id="zipcode" required>
+                          <button class="btn btn-outline-secondary" type="button" id="loadAddressBtn">Buscar Endereço</button>
+                        </div>
+                    </div>
+                    <div class="card mt-4">
+                        <div class="card-body">                    
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Endereço</label>
+                                <input type="text" class="form-control" id="address" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="number" class="form-label">Numero</label>
+                                <input type="text" class="form-control" id="number" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="city" class="form-label">Bairro</label>
+                                <input type="text" class="form-control" id="neighborhood" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="city" class="form-label">Cidade</label>
+                                <input type="text" class="form-control" id="city" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="state" class="form-label">Estado</label>
+                                <input type="text" class="form-control" id="state" required>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
                 </form>
             </div>
         </div>
@@ -125,8 +156,9 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="static/js/script.js"></script>
+<script src="static/js/mapper.js"></script>
 <script src="static/js/ajax.js"></script>
+<script src="static/js/script.js"></script>
 <script src="static/js/modal.js"></script>
 </body>
 </html>

@@ -15,3 +15,40 @@ h1 {
     background-color: #007bff;
     color: white;
 }
+
+/* Limita a largura máxima do conteúdo para monitores widescreen */
+.container {
+    max-width: 1200px; /* Limita a largura para evitar que o conteúdo se espalhe muito */
+    margin: 0 auto; /* Centraliza o conteúdo */
+}
+
+/* Estilo para tabelas em telas maiores */
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+}
+
+/* Ajuste da largura do modal em telas maiores */
+.modal-dialog {
+    max-width: 700px; /* Limita a largura do modal para não ficar muito largo */
+    margin: 1.75rem auto;
+}
+
+/* Define uma largura fixa para o modal */
+.modal-content {
+    width: 100%;
+}
+
+/* Ajusta a largura dos campos de input no modal */
+.form-control {
+    max-width: 100%;
+}
+
+/* Remove o excesso de margem entre os elementos na tela maior */
+@media (min-width: 992px) {
+    .mb-3, .modal-header, .modal-footer {
+        margin-bottom: 1.5rem;
+    }
+}

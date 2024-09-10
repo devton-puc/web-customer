@@ -4,18 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPage = 1;
     const customersPerPage = 3;
 
-    const elements = {
-        customerTableBody: document.getElementById('customerTableBody'),
-        customerForm: document.getElementById('customerForm'),
-        customerModalLabel: document.getElementById('customerModalLabel'),
-        customerIdField: document.getElementById('customerId'),
-        customerNameField: document.getElementById('customerName'),
-        customerEmailField: document.getElementById('customerEmail'),
-        customerPhoneField: document.getElementById('customerPhone'),
-        customerAgeField: document.getElementById('customerAge'),
-        searchInput: document.getElementById('searchCustomer'),
-        paginationElement: document.getElementById('pagination')
-    };
+    const elements = mapElementByInputs();
 
     // Render customers in the table
     const renderCustomers = () => {
@@ -63,12 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle form submission (add/edit customer)
     const handleFormSubmit = event => {
         event.preventDefault();
-        const customerData = {
-            name: elements.customerNameField.value,
-            email: elements.customerEmailField.value,
-            phone: elements.customerPhoneField.value,
-            age: elements.customerAgeField.value
-        };
+        const customerData = mapCustomerElements(elements);
 
         if (editMode) {
             updateCustomer(elements.customerIdField.value, customerData)
@@ -94,11 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Edit customer
     window.editCustomer = id => {
         getCustomerById(id).then(customer => {
-            elements.customerIdField.value = customer.id;
-            elements.customerNameField.value = customer.name;
-            elements.customerEmailField.value = customer.email;
-            elements.customerPhoneField.value = customer.phone;
-            elements.customerAgeField.value = customer.age;
+
+            mapElementCustomer(elements, customer);   
+
             elements.customerModalLabel.textContent = "Edit Customer";
             editMode = true;
             $('#customerModal').modal('show');
@@ -117,6 +99,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    window.findAddressByZipCode = zicodeData =>{
+        getAddressByZipcode(zicodeData)
+            .then(data =>{
+                mapElementAddress(elements, data);
+        
+            })
+            .catch(error => showAlert('Erro ao buscar o cep: ' + error.message));
+    }
+
     // Initialize page
     const init = () => {
         elements.customerForm.addEventListener('submit', handleFormSubmit);
@@ -125,6 +116,9 @@ document.addEventListener('DOMContentLoaded', () => {
             elements.customerModalLabel.textContent = "Add Customer";
             elements.customerForm.reset();
             editMode = false;
+        });
+        document.getElementById('loadAddressBtn').addEventListener('click', () => {
+            findAddressByZipCode(elements.zipCodeField.value);
         });
         fetchAndRenderCustomers();
     };
