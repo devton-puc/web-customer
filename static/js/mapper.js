@@ -1,4 +1,4 @@
-const mapElementByInputs = () => {
+const mapElementsByInputs = () => {
     return {
         customerTableBody: document.getElementById('customerTableBody'),
         customerForm: document.getElementById('customerForm'),
@@ -19,7 +19,7 @@ const mapElementByInputs = () => {
     };
 }
 
-const mapElementCustomer = (elements, customer) => {
+const mapElementsCustomer = (elements, customer) => {
     elements.customerIdField.value = customer.id;
     elements.customerNameField.value = customer.name;
     elements.customerEmailField.value = customer.email;
@@ -33,7 +33,7 @@ const mapElementCustomer = (elements, customer) => {
     elements.zipCodeField.value = customer.address.zipcode;
 }
 
-const mapElementAddress = (elements, address) => {
+const mapElementsAddress = (elements, address) => {
     elements.addressField.value = address.address;
     elements.cityField.value = address.city;
     elements.neighborhoodField.value = address.neighborhood;

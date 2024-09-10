@@ -7,7 +7,7 @@ async function filterCustomer(page = 1, name = '', perPage = 10) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ page, name, per_page: perPage })
     });
-    return await response.json();
+    return handleErrors(response);
 }
 
 // Cria um novo cliente
@@ -17,7 +17,7 @@ async function createCustomer(customerData) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(customerData)
     });
-    return await response.json();
+    return handleErrors(response);
 }
 
 // Atualiza o Cliente
@@ -27,7 +27,7 @@ async function updateCustomer(id, customerData) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(customerData)
     });
-    return await response.json();
+    return handleErrors(response);
 }
 
 // Obtém o cliente pelo ID
@@ -35,7 +35,7 @@ async function getCustomerById(id) {
     const response = await fetch(`${API_BASE_URL}/customer/${id}`, {
         method: 'GET'
     });
-    return await response.json();
+    return handleErrors(response);
 }
 
 // Exclui o Cliente pelo ID
@@ -43,7 +43,7 @@ async function deleteCustomerById(id) {
     const response = await fetch(`${API_BASE_URL}/customer/${id}`, {
         method: 'DELETE'
     });
-    return await response.json();
+    return handleErrors(response);
 }
 
 
@@ -53,5 +53,28 @@ async function getAddressByZipcode(zipcode) {
     const response = await fetch(`${API_BASE_URL}/customer/zipcode/${zipcode}`,{
             method: 'GET'
     });
-    return await response.json();
+    return handleErrors(response);
+}
+
+//handler para tratamentos de erros, para forçar cair no metodo catch. 
+async function handleErrors(response) {
+    try{
+        if (!response.ok) {            
+            const errorBody = await response.json();
+            console.log(errorBody)
+            throw new MessageError(errorBody,response.status);
+        }
+        return await response.json();
+    }catch(error){
+        throw new MessageError(error.message, 500);
+    }
+}
+
+
+class MessageError extends Error {
+    constructor(message, statusCode) {
+        super(message);
+        this.message = message;
+        this.statusCode = statusCode;
+    }
 }
