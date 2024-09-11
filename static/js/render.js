@@ -7,7 +7,7 @@ const renderCustomers = () => {
             <td>${(currentPage - 1) * customersPerPage + index + 1}</td>
             <td>${customer.name}</td>
             <td>${customer.email}</td>
-            <td>${customer.phone}</td>
+            <td>${formatPhone(customer.phone)}</td>
              <td>${customer.age}</td>
             <td>
                 <button class="btn btn-warning btn-sm" onclick="loadCustomerEdit(${customer.id})">Edit</button>
