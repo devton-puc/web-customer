@@ -59,14 +59,14 @@ async function getAddressByZipcode(zipcode) {
 //handler para tratamentos de erros, para forçar cair no metodo catch. 
 async function handleErrors(response) {
     try{
-        if (!response.ok) {            
+        if (response.status > 300) {            
             const errorBody = await response.json();
             console.log(errorBody)
             throw new MessageError(errorBody,response.status);
         }
         return await response.json();
     }catch(error){
-        throw new MessageError(error.message, 500);
+        throw new MessageError(error.message, response.status);
     }
 }
 

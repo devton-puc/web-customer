@@ -16,6 +16,10 @@ const renderCustomers = () => {
     `).join('');
 };
 
+const renderClearCustomers = () => {
+    elements.customerTableBody.innerHTML =  '';
+};
+
 const renderPagination = (total, page) => {
     const totalPages = Math.ceil(total / customersPerPage);
     const createPageLink = (label, active = false, disabled = false, onClick = null) => `
@@ -39,7 +43,13 @@ window.fetchAndRenderCustomers = (page = 1, name = '') => {
             renderPagination(data.total, data.page);
         })                
         .catch(error => {
-            showAlert('Erro ao consultar o cliente: ' + error.data.message);       
+            if (error.statusCode === 204){
+                showAlert('Não há dados retornados para esta consulta.');
+                renderClearCustomers();
+            }else{
+                showAlert(`Erro ao consultar o cliente: ${error.message.message}`);
+            }               
+            
         });
 };
 
@@ -51,10 +61,10 @@ const handleFormSubmit = event => {
         updateCustomer(elements.customerIdField.value, customerData)
             .then(() => {
                 fetchAndRenderCustomers(currentPage);
-                showAlert('Cliente atualizado com sucesso!');
+                showAlert('Cliente atualizado com sucesso.');
             })
             .catch(error => {
-                showAlert('Erro ao atualizar o cliente: ' +error.data.message);           
+                showAlert(`Erro ao atualizar o cliente: ${error.message.message}`);
             });
 
         editMode = false;
@@ -62,10 +72,10 @@ const handleFormSubmit = event => {
         createCustomer(customerData)
             .then(() => {
                 fetchAndRenderCustomers(currentPage);
-                showAlert('Cliente criado com sucesso!');
+                showAlert('Cliente criado com sucesso.');
             })
             .catch(error => {
-                showAlert('Erro ao criar o cliente: ' +error.data.message);         
+                showAlert(`Erro ao criar o cliente: ${error.message.message}`); 
             });                
     }
 
@@ -92,7 +102,7 @@ window.loadCustomerEdit = id => {
         $('#customerModal').modal('show');
     })            
     .catch(error => {
-        showAlert('Erro ao buscar o cliente: ' + error.data.message);          
+        showAlert(`Erro ao buscar o cliente: ${error.message.message}`);    
     });
 };
 
@@ -104,7 +114,7 @@ window.deleteCustomer = id => {
                 fetchAndRenderCustomers(currentPage);
             })
             .catch(error => {                
-                showAlert('Erro ao excluir o cliente: ' + error.data.message);                  
+                showAlert(`Erro ao excluir o cliente: ${error.message.message}`);                  
             });
     });
 };
@@ -117,11 +127,6 @@ window.findAddressByZipCode = zicodeData =>{
     
         })
         .catch(error => {
-            console.log(JSON.stringify(error));
-            if (error instanceof MessageError)
-                showAlert('Erro ao buscar o Cep: ' + error.message.message); 
-            else{
-                console.log(`Erro ao buscar o Cep: ${error}`)
-            }             
+            showAlert(`Erro ao buscar o Cep: ${error.message.message}`);         
         });
 }
