@@ -1,6 +1,5 @@
 
 
-// Render customers in the table
 const renderCustomers = () => {
     elements.customerTableBody.innerHTML = customers.map((customer, index) => `
         <tr>
@@ -17,7 +16,6 @@ const renderCustomers = () => {
     `).join('');
 };
 
-// Render pagination controls
 const renderPagination = (total, page) => {
     const totalPages = Math.ceil(total / customersPerPage);
     const createPageLink = (label, active = false, disabled = false, onClick = null) => `
@@ -33,7 +31,6 @@ const renderPagination = (total, page) => {
     `;
 };
 
-// Fetch and render customers
 window.fetchAndRenderCustomers = (page = 1, name = '') => {
     filterCustomer(page, name, customersPerPage)
         .then(data => {
@@ -46,7 +43,6 @@ window.fetchAndRenderCustomers = (page = 1, name = '') => {
         });
 };
 
-// Handle form submission (add/edit customer)
 const handleFormSubmit = event => {
     event.preventDefault();
     const customerData = mapCustomerElements(elements);
@@ -77,10 +73,20 @@ const handleFormSubmit = event => {
     elements.customerForm.reset();
 };
 
-// Edit customer
+const showAddressCard = () => {
+    const addressCard = document.getElementById('addressCard');
+    addressCard.classList.remove('d-none');
+}
+
+const hideAddressCard = () => {
+    const addressCard = document.getElementById('addressCard');
+    addressCard.classList.add('d-none');
+}
+
 window.loadCustomerEdit = id => {
     getCustomerById(id).then(customer => {
         mapElementsCustomer(elements, customer); 
+        showAddressCard();
         elements.customerModalLabel.textContent = "Edit Customer";
         editMode = true;
         $('#customerModal').modal('show');
@@ -90,7 +96,6 @@ window.loadCustomerEdit = id => {
     });
 };
 
-// Delete customer
 window.deleteCustomer = id => {
     showConfirm('Tem certeza de que deseja excluir este cliente?', () => {
         deleteCustomerById(id)
@@ -108,6 +113,7 @@ window.findAddressByZipCode = zicodeData =>{
     getAddressByZipcode(zicodeData)
         .then(data =>{
             mapElementsAddress(elements, data);
+            showAddressCard();
     
         })
         .catch(error => {

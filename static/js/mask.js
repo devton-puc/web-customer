@@ -1,49 +1,53 @@
-function applyZipCodeMask(value) {
-    return value
-        .replace(/\D/g, '') // Remove caracteres não numéricos
-        .replace(/(\d{5})(\d)/, '$1-$2') // Adiciona hífen
-        .substring(0, 9); // Limita o tamanho da string
+const applyZipCodeMask = (zipCodeStr) => {
+    return zipCodeStr
+        .replace(/\D/g, '')
+        .replace(/(\d{5})(\d)/, '$1-$2') 
+        .substring(0, 9); 
 }
 
-function removeZipCodeMask(value) {
-    return value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+const removeZipCodeMask = (zipCodeStr) => {
+    return zipCodeStr.replace(/\D/g, ''); 
 }
 
-function applyPhoneMask(value) {
-    return value
-        .replace(/\D/g, '') // Remove caracteres não numéricos
-        .replace(/(\d{2})(\d)/, '($1) $2') // Adiciona parênteses
-        .replace(/(\d{5})(\d)/, '$1-$2') // Adiciona hífen
-        .substring(0, 15); // Limita o tamanho da string
-}
-
-function removePhoneMask(value) {
-    return value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
-}
-
-function formatPhone(value) {
-    value = value.replace(/\D/g, ''); // Remove todos os caracteres que não são números
-    if (value.length > 11) {
-        value = value.substring(0, 11); // Limita a quantidade de dígitos a 11
+const formatZipCode = (zipCodeStr) => {
+    zipCodeStr = zipCodeStr.replace(/\D/g, ''); 
+    if (zipCodeStr.length > 8) {
+        zipCodeStr = zipCodeStr.substring(0, 8); 
     }
-    if (value.length > 6) {
-        return `(${value.substring(0, 2)}) ${value.substring(2, 7)}-${value.substring(7, 11)}`;
-    } else if (value.length > 2) {
-        return `(${value.substring(0, 2)}) ${value.substring(2, 7)}`;
+    if (zipCodeStr.length > 5) {
+        return `${zipCodeStr.substring(0, 5)}-${zipCodeStr.substring(5, 8)}`;
     } else {
-        return `(${value}`; // Parênteses abertos se for menor que 3 dígitos
+        return zipCodeStr; 
     }
 }
 
-// Função para formatar CEP no padrão XXXXX-XXX
-function formatZipCode(value) {
-    value = value.replace(/\D/g, ''); // Remove todos os caracteres que não são números
-    if (value.length > 8) {
-        value = value.substring(0, 8); // Limita a quantidade de dígitos a 8
-    }
-    if (value.length > 5) {
-        return `${value.substring(0, 5)}-${value.substring(5, 8)}`;
-    } else {
-        return value; // Caso o valor tenha menos de 6 dígitos
-    }
+const applyPhoneMask = (phoneStr) => {
+    return phoneStr
+        .replace(/\D/g, '') 
+        .replace(/(\d{2})(\d)/, '($1) $2') 
+        .replace(/(\d{5})(\d)/, '$1-$2') 
+        .substring(0, 15); 
 }
+
+const removePhoneMask = (phoneStr) => {
+    return phoneStr.replace(/\D/g, ''); 
+}
+
+const formatPhone = (phoneStr) => {
+    phoneStr = phoneStr.replace(/\D/g, ''); 
+    if (phoneStr.length > 11 ) { 
+        phoneStr = phoneStr.substring(0, 10);
+    }
+    if (phoneStr.length == 11 ) {
+        return `(${phoneStr.substring(0, 2)}) ${phoneStr.substring(2, 7)}-${phoneStr.substring(7, 11)}`;
+    } else if (phoneStr.length == 10 ) { 
+        return `(${phoneStr.substring(0, 2)}) ${phoneStr.substring(2, 6)}-${phoneStr.substring(6, 10)}`;
+    } else {
+        return `(${phoneStr})`;
+    }
+
+
+}
+
+
+
