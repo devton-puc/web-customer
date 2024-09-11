@@ -11,6 +11,11 @@ const init = () => {
     elements.searchInput.addEventListener('input', () => {
         fetchAndRenderCustomers(1, elements.searchInput.value);
     });
+
+    document.getElementById("cancelButton").addEventListener('click', () => {
+        hideAddressCard();
+        elements.customerForm.reset();
+    });
     
     document.getElementById('addCustomerBtn').addEventListener('click', () => {
         elements.customerModalLabel.textContent = "Add Customer";

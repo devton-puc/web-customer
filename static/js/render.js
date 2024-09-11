@@ -65,8 +65,7 @@ const handleFormSubmit = event => {
             })
             .catch(error => {
                 showAlert(`Erro ao atualizar o cliente: ${error.message.message}`);
-            });
-
+            });        
         editMode = false;
     } else {
         createCustomer(customerData)
@@ -79,6 +78,7 @@ const handleFormSubmit = event => {
             });                
     }
 
+    hideAddressCard();
     $('#customerModal').modal('hide');
     elements.customerForm.reset();
 };
