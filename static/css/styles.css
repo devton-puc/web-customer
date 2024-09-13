@@ -41,6 +41,18 @@ h1 {
     width: 100%;
 }
 
+
+.modal-alert {
+    z-index: 1065; /* Aumenta o z-index do backdrop do modal de alerta */
+    background-color: rgba(0, 0, 0, 0.8); /* Torna o fundo mais escuro */
+}
+
+.modal-confirm {
+    z-index: 1065; /* Aumenta o z-index do backdrop do modal de alerta */
+    background-color: rgba(0, 0, 0, 0.8); /* Torna o fundo mais escuro */
+}
+
+
 /* Ajusta a largura dos campos de input no modal */
 .form-control {
     max-width: 100%;

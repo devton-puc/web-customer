@@ -1,63 +1,54 @@
 const API_BASE_URL = 'http://localhost:5000';
 
-//filtra pelo nome
-async function filterCustomer(page = 1, name = '', perPage = 10) {
+const filterCustomer = async (page = 1, name = '', perPage = 10) => {
     const response = await fetch(`${API_BASE_URL}/customer/list`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ page, name, per_page: perPage })
     });
-    return handleErrors(response);
+    return handleResponse(response);
 }
 
-// Cria um novo cliente
-async function createCustomer(customerData) {
+const createCustomer = async (customerData) => {
     const response = await fetch(`${API_BASE_URL}/customer/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(customerData)
     });
-    return handleErrors(response);
+    return handleResponse(response);
 }
 
-// Atualiza o Cliente
-async function updateCustomer(id, customerData) {
+const updateCustomer = async (id, customerData) => {
     const response = await fetch(`${API_BASE_URL}/customer/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(customerData)
     });
-    return handleErrors(response);
+    return handleResponse(response);
 }
 
-// Obtém o cliente pelo ID
-async function getCustomerById(id) {
+const getCustomerById = async (id) => {
     const response = await fetch(`${API_BASE_URL}/customer/${id}`, {
         method: 'GET'
     });
-    return handleErrors(response);
+    return handleResponse(response);
 }
 
-// Exclui o Cliente pelo ID
-async function deleteCustomerById(id) {
+const deleteCustomerById = async (id) => {
     const response = await fetch(`${API_BASE_URL}/customer/${id}`, {
         method: 'DELETE'
     });
-    return handleErrors(response);
+    return handleResponse(response);
 }
 
-
-
-// Retorna os dados de endereço pelo CEP
-async function getAddressByZipcode(zipcode) {
+const getAddressByZipcode = async (zipcode) => {
     const response = await fetch(`${API_BASE_URL}/customer/zipcode/${zipcode}`,{
             method: 'GET'
     });
-    return handleErrors(response);
+    return handleResponse(response);
 }
 
-//handler para tratamentos de erros, para forçar cair no metodo catch. 
-async function handleErrors(response) {
+const handleResponse = async (response) => {
     try{
         if (response.status > 300) {            
             const errorBody = await response.json();
@@ -69,7 +60,6 @@ async function handleErrors(response) {
         throw new MessageError(error.message, response.status);
     }
 }
-
 
 class MessageError extends Error {
     constructor(message, statusCode) {

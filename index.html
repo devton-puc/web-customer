@@ -106,7 +106,7 @@
                             <div class="form-row">
                                 <div class="form-group col-md-9">
                                     <label for="customerAddress">Endereço</label>
-                                    <input type="text" class="form-control" id="customerAddress" required>
+                                    <input type="text" class="form-control" id="customerAddress" disabled required>
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="customerNumber">Número</label>
@@ -116,23 +116,23 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="customerNeighborhood">Bairro</label>
-                                    <input type="text" class="form-control" id="customerNeighborhood" required>
+                                    <input type="text" class="form-control" id="customerNeighborhood" disabled required>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-9">
                                     <label for="customerCity">Cidade</label>
-                                    <input type="text" class="form-control" id="customerCity" required>
+                                    <input type="text" class="form-control" id="customerCity" disabled required>
                                 </div> 
                                 <div class="form-group col-md-3">
                                     <label for="customerState">UF</label>
-                                    <input type="text" class="form-control" id="customerState" required>
+                                    <input type="text" class="form-control" id="customerState" disabled required>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary mt-3">Salvar</button>
-                    <button type="button" id="cancelButton" class="btn btn-secondary mt-3" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary mt-3" data-dismiss="modal">Cancelar</button>
                 </form>
             </div>
         </div>
@@ -140,7 +140,7 @@
 </div>
 
 <!-- Modal de Alerta -->
-<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
+<div class="modal fade modal-alert" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="alertModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -160,7 +160,7 @@
 </div>
   
 <!-- Modal de Confirmação -->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+<div class="modal fade modal-confirm" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">

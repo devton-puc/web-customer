@@ -1,7 +1,7 @@
 let customers = [];
 let editMode = false;
 let currentPage = 1;
-const customersPerPage = 3;
+const customersPerPage = 5;
 
 const elements = mapElementsByInputs();
 
@@ -12,11 +12,13 @@ const init = () => {
         fetchAndRenderCustomers(1, elements.searchInput.value);
     });
 
-    document.getElementById("cancelButton").addEventListener('click', () => {
-        hideAddressCard();
-        elements.customerForm.reset();
+    document.querySelectorAll('#customerModal [data-dismiss="modal"]').forEach(button => {
+        button.addEventListener('click', () => {
+            hideAddressCard();
+            elements.customerForm.reset();
+        });
     });
-    
+ 
     document.getElementById('addCustomerBtn').addEventListener('click', () => {
         elements.customerModalLabel.textContent = "Add Customer";
         elements.customerForm.reset();
