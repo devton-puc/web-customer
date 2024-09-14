@@ -11,11 +11,6 @@ h1 {
     color: white;
 }
 
-.modal-header {
-    background-color: #007bff;
-    color: white;
-}
-
 /* Limita a largura máxima do conteúdo para monitores widescreen */
 .container {
     max-width: 1200px; /* Limita a largura para evitar que o conteúdo se espalhe muito */
@@ -28,28 +23,6 @@ h1 {
     max-width: 100%;
     margin-bottom: 1rem;
     background-color: transparent;
-}
-
-/* Ajuste da largura do modal em telas maiores */
-.modal-dialog {
-    max-width: 700px; /* Limita a largura do modal para não ficar muito largo */
-    margin: 1.75rem auto;
-}
-
-/* Define uma largura fixa para o modal */
-.modal-content {
-    width: 100%;
-}
-
-
-.modal-alert {
-    z-index: 1065; /* Aumenta o z-index do backdrop do modal de alerta */
-    background-color: rgba(0, 0, 0, 0.8); /* Torna o fundo mais escuro */
-}
-
-.modal-confirm {
-    z-index: 1065; /* Aumenta o z-index do backdrop do modal de alerta */
-    background-color: rgba(0, 0, 0, 0.8); /* Torna o fundo mais escuro */
 }
 
 

@@ -6,6 +6,8 @@
     <title>Customer CRUD</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="stylesheet" href="static/css/modal.css">
+    <link rel="stylesheet" href="static/css/spinner.css">
 </head>
 <body>
 
@@ -179,11 +181,20 @@
       </div>
     </div>
 </div>
-  
+
+<div id="spinner" class="spinner hidden">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden"></span>
+    </div>
+</div>
+
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="static/js/interceptorFetch.js"></script>
 <script src="static/js/mapper.js"></script>
+<script src="static/js/spinner.js"></script>
 <script src="static/js/mask.js"></script>
 <script src="static/js/ajax.js"></script>
 <script src="static/js/modal.js"></script>
