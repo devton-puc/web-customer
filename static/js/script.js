@@ -9,10 +9,10 @@ const init = () => {
     elements.customerForm.addEventListener('submit', handleFormSubmit);
     
     elements.searchInput.addEventListener('input', () => {
-        fetchAndRenderCustomers(1, elements.searchInput.value);
+        filterCustomeByName(1, elements.searchInput.value);
     });
 
-    document.querySelectorAll('#customerModal [data-dismiss="modal"]').forEach(button => {
+    document.querySelectorAll('#customerModal [data-bs-dismiss="modal"]').forEach(button => {
         button.addEventListener('click', () => {
             hideAddressCard();
             elements.customerForm.reset();
@@ -36,7 +36,7 @@ const init = () => {
     document.getElementById('customerZipCode').addEventListener('input', function(event) {
         this.value = applyZipCodeMask(event.target.value);
     });
-    fetchAndRenderCustomers();
+    filterCustomeByName();
 };
 
 init();

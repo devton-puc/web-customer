@@ -1,4 +1,5 @@
 
+const customerModal = new bootstrap.Modal(document.getElementById('customerModal'));
 
 const renderCustomers = () => {
     elements.customerTableBody.innerHTML = customers.map((customer, index) => `
@@ -17,7 +18,12 @@ const renderCustomers = () => {
 };
 
 const renderClearCustomers = () => {
-    elements.customerTableBody.innerHTML =  '';
+    elements.customerTableBody.innerHTML =  `
+        <tr>
+            <td colspan='6'>Sem dados para consulta.</td>
+        </tr>
+    `;
+    elements.paginationElement.innerHTML = '';
 };
 
 const renderPagination = (total, page) => {
@@ -29,13 +35,13 @@ const renderPagination = (total, page) => {
     `;
 
     elements.paginationElement.innerHTML = `
-        ${createPageLink('&laquo;', false, page === 1, `fetchAndRenderCustomers(${page - 1})`)}
-        ${Array.from({ length: totalPages }, (_, i) => createPageLink(i + 1, i + 1 === page, false, `fetchAndRenderCustomers(${i + 1})`)).join('')}
-        ${createPageLink('&raquo;', false, page === totalPages, `fetchAndRenderCustomers(${page + 1})`)}
+        ${createPageLink('&laquo;', false, page === 1, `filterCustomeByName(${page - 1})`)}
+        ${Array.from({ length: totalPages }, (_, i) => createPageLink(i + 1, i + 1 === page, false, `filterCustomeByName(${i + 1})`)).join('')}
+        ${createPageLink('&raquo;', false, page === totalPages, `filterCustomeByName(${page + 1})`)}
     `;
 };
 
-window.fetchAndRenderCustomers = (page = 1, name = '') => {
+window.filterCustomeByName = (page = 1, name = '') => {
     filterCustomer(page, name, customersPerPage)
         .then(data => {
             customers = data.customers;
@@ -44,7 +50,6 @@ window.fetchAndRenderCustomers = (page = 1, name = '') => {
         })                
         .catch(error => {
             if (error.statusCode === 204){
-                showAlert('Não há dados retornados para esta consulta.');
                 renderClearCustomers();
             }else{
                 showAlert(`Erro ao consultar o cliente: ${error.message.message}`);
@@ -60,7 +65,7 @@ const handleFormSubmit = event => {
     if (editMode) {
         updateCustomer(elements.customerIdField.value, customerData)
             .then(() => {
-                fetchAndRenderCustomers(currentPage);
+                filterCustomeByName(currentPage);
                 showAlert('Cliente atualizado com sucesso.');
             })
             .catch(error => {
@@ -70,18 +75,28 @@ const handleFormSubmit = event => {
     } else {
         createCustomer(customerData)
             .then(() => {
-                fetchAndRenderCustomers(currentPage);
+                filterCustomeByName(currentPage);
                 showAlert('Cliente criado com sucesso.');
             })
             .catch(error => {
                 showAlert(`Erro ao criar o cliente: ${error.message.message}`); 
             });                
     }
-
-    hideAddressCard();
-    $('#customerModal').modal('hide');
+    
+    hideCustomerModal();
     elements.customerForm.reset();
+
+
 };
+
+const showCustomerModal = () => {    
+    customerModal.show();
+}
+
+const hideCustomerModal = () => {
+    hideAddressCard();
+    customerModal.hide();
+}
 
 const showAddressCard = () => {
     const addressCard = document.getElementById('addressCard');
@@ -99,7 +114,7 @@ window.loadCustomerEdit = id => {
         showAddressCard();
         elements.customerModalLabel.textContent = "Edit Customer";
         editMode = true;
-        $('#customerModal').modal('show');
+        showCustomerModal();
     })            
     .catch(error => {
         showAlert(`Erro ao buscar o cliente: ${error.message.message}`);    
@@ -111,7 +126,7 @@ window.deleteCustomer = id => {
         deleteCustomerById(id)
             .then(() => {
                 showAlert('Cliente excluído com sucesso!');
-                fetchAndRenderCustomers(currentPage);
+                filterCustomeByName(currentPage);
             })
             .catch(error => {                
                 showAlert(`Erro ao excluir o cliente: ${error.message.message}`);                  
